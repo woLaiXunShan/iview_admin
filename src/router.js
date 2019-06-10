@@ -18,7 +18,7 @@ export default new Router({
     },
     {
       path: '',
-      name: '',
+      name: 'home_',
       component: Main,
       // redirect: '/',
       children: [
@@ -31,24 +31,44 @@ export default new Router({
           }
         }
       ]
-    // },
-    // {
-    //   path: '',
-    //   name: '',
-    //   component: Main,
-    //   children: [
-    //     {
-    //       path: '/visitLog',
-    //       name: 'visitLog',
-    //       component: _import_('visitLog/Index'),
-    //       meta: {
-    //         title: '访问日志'
-    //       }
-    //     }
-    //   ],
-    //   meta: {
-    //     title: '访问日志'
-    //   }
-    }
+    },
+    {
+      path: 'WeChatUser',
+      name: 'WeChatUser',
+      component: Main,
+      meta: {
+        title: '微信用户管理',
+        icon: 'ios-navigate'
+      },
+      children: [
+        {
+          path: '/WeChatUser',
+          name: 'WeChatUserList',
+          component: _import_('WeChatUser/Index'),
+          meta: {
+            title: '微信用户列表'
+          }
+        }
+      ]
+    },
+    {
+      path: 'WeChatUser',
+      name: 'WeChatUser1',
+      component: Main,
+      meta: {
+        title: '微信用户管理',
+        icon: 'ios-navigate'
+      },
+      children: [
+        {
+          path: '/WeChatUser',
+          name: 'WeChatUserList1',
+          component: _import_('WeChatUser/Index'),
+          meta: {
+            title: '微信用户列表'
+          }
+        }
+      ]
+    },
   ]
 })

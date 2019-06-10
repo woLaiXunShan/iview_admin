@@ -3,38 +3,37 @@
     <Layout style="height: 100vh;">
       <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
         <div class="logo">LOGO</div>
-        <Menu :active-name="$route.name" theme="dark" width="auto" :class="menuitemClasses">
-          <router-link to="/visitLog">
-            <MenuItem name="visitLog">
-              <Icon type="ios-navigate"></Icon>
-              <span>访问日志</span>
-            </MenuItem>
-          </router-link>
-          <router-link to="/errorLog">
-            <MenuItem name="errorLog">
-              <Icon type="ios-settings"></Icon>
-              <span>错误日志</span>
-            </MenuItem>
-          </router-link>
-          <router-link to="/errorLog">
-            <MenuItem name="errorLog">
-              <Icon type="ios-settings"></Icon>
-              <span>短信记录</span>
-            </MenuItem>
-          </router-link>
-          <router-link to="/errorLog">
-            <MenuItem name="errorLog">
-              <Icon type="ios-settings"></Icon>
-              <span>费用管理</span>
-            </MenuItem>
-          </router-link>
-          <router-link to="/errorLog">
-            <MenuItem name="errorLog">
-              <Icon type="ios-settings"></Icon>
-              <span>公司管理</span>
-            </MenuItem>
-          </router-link>
+        <Menu v-show="!isCollapsed" :active-name="$route.name" theme="dark" width="auto" :class="menuitemClasses">
+          <template v-for="(item, index) in routes">
+            <Submenu :name="index" v-if="item.name!=='home_' && item.name!=='login'" :key="index" :index="`${index}`">
+              <template slot="title">
+                <Icon :type="item.meta.icon"/>
+                {{item.meta.title}}
+              </template>
+              <MenuItem v-for="(it, i) in item.children" :name="`${index}-${i}`" :key="`${index}-${i}`">
+                <router-link :to="it.path">
+                  {{it.meta.title}}
+                </router-link>
+              </MenuItem>
+            </Submenu>
+          </template>
         </Menu>
+        <div class="menu-collapsed" v-show="isCollapsed" :list="routes">
+          <template v-for="item in routes">
+            <Dropdown v-if="item.name!=='home_' && item.name!=='login'" :key="item.name">
+              <a href="javascript:void(0)">
+                <Icon :type="item.meta.icon"/>
+              </a>
+              <DropdownMenu slot="list">
+                <DropdownItem v-for="(it, i) in item.children" :name="`-${i}`" :key="`-${i}`">
+                  <router-link :to="it.path">
+                    {{it.meta.title}}
+                  </router-link>
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </template>
+        </div>
       </Sider>
       <Layout>
         <Header :style="{padding: 0}" class="layout-header-bar">
@@ -45,11 +44,12 @@
               :style="{margin: '0 20px'}"
               type="md-menu"
               size="28"
+              style="cursor:pointer;"
             ></Icon>
             <Breadcrumb></Breadcrumb>
           </div>
           <div class="header_user_msg">
-            <Dropdown @on-click="out_($event)">
+            <Dropdown @click="out_($event)">
               <Avatar :src="head" />
               <DropdownMenu slot="list">
                 <!-- <DropdownItem name="my">个人中心</DropdownItem> -->
@@ -81,6 +81,9 @@ export default {
     }
   },
   computed: {
+    routes () {
+      return this.$router.options.routes
+    },
     rotateIcon() {
       return ["menu-icon", this.isCollapsed ? "rotate-icon" : ""]
     },
@@ -107,6 +110,8 @@ export default {
   height: 64px;
   line-height: 64px;
   text-align: center;
+  color: #fff;
+  font-size: 24px;
 }
 .layout {
   border: 1px solid #d7dde4;
