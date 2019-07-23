@@ -51,24 +51,24 @@ export default new Router({
         }
       ]
     },
-    {
-      path: 'WeChatUser',
-      name: 'WeChatUser1',
-      component: Main,
-      meta: {
-        title: '微信用户管理',
-        icon: 'ios-navigate'
-      },
-      children: [
-        {
-          path: '/WeChatUser',
-          name: 'WeChatUserList1',
-          component: _import_('WeChatUser/Index'),
-          meta: {
-            title: '微信用户列表'
-          }
-        }
-      ]
-    },
+    // {
+    //   path: 'WeChatUser',
+    //   name: 'WeChatUser1',
+    //   component: Main,
+    //   meta: {
+    //     title: '微信用户管理',
+    //     icon: 'ios-navigate'
+    //   },
+    //   children: [
+    //     {
+    //       path: '/WeChatUser',
+    //       name: 'WeChatUserList1',
+    //       component: _import_('WeChatUser/Index'),
+    //       meta: {
+    //         title: '微信用户列表'
+    //       }
+    //     }
+    //   ]
+    // },
   ]
 })

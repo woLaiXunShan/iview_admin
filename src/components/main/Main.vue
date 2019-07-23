@@ -49,7 +49,7 @@
             <Breadcrumb></Breadcrumb>
           </div>
           <div class="header_user_msg">
-            <Dropdown @click="out_($event)">
+            <Dropdown @on-click="out_($event)">
               <Avatar :src="head" />
               <DropdownMenu slot="list">
                 <!-- <DropdownItem name="my">个人中心</DropdownItem> -->
@@ -96,6 +96,7 @@ export default {
       this.$refs.side1.toggleCollapse()
     },
     out_ (name) {
+      console.log(name)
       if (name === 'out') {
         sessionStorage.login = false
         sessionStorage.tags = []
