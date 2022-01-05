@@ -5,15 +5,13 @@
         <div class="logo">LOGO</div>
         <Menu v-show="!isCollapsed" :active-name="$route.name" theme="dark" width="auto" :class="menuitemClasses">
           <template v-for="(item, index) in routes">
-            <Submenu :name="index" v-if="item.name!=='home_' && item.name!=='login'" :key="index" :index="`${index}`">
+            <Submenu :name="index" v-if="item.name!=='home_' && item.name!=='login' && item.hidden" :key="index" :index="`${index}`">
               <template slot="title">
                 <Icon :type="item.meta.icon"/>
                 {{item.meta.title}}
               </template>
-              <MenuItem v-for="(it, i) in item.children" :name="`${index}-${i}`" :key="`${index}-${i}`">
-                <router-link :to="it.path">
-                  {{it.meta.title}}
-                </router-link>
+              <MenuItem v-for="(it, i) in item.children" :to="it.path" :name="`${index}-${i}`" :key="`${index}-${i}`">
+                {{it.meta.title}}
               </MenuItem>
             </Submenu>
           </template>
@@ -25,10 +23,8 @@
                 <Icon :type="item.meta.icon"/>
               </a>
               <DropdownMenu slot="list">
-                <DropdownItem v-for="(it, i) in item.children" :name="`-${i}`" :key="`-${i}`">
-                  <router-link :to="it.path">
-                    {{it.meta.title}}
-                  </router-link>
+                <DropdownItem v-for="(it, i) in item.children" :to="it.path" :name="`-${i}`" :key="`-${i}`">
+                  {{it.meta.title}}
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
